@@ -1,88 +1,82 @@
 "use client"
-
 import React, { useState } from 'react';
 import axios from "axios";
 import API from '@/services/endpoint';
 import errorHandler from '@/utils/handler.utils';
 import Footer from '@/component/core/Footer';
 import Branding from '@/component/core/Branding';
+import { useRouter } from 'next/navigation'
+
 
 const HomePage = () => {
-    const [uploadFile, setUploadFile] = useState({
-        file: null,
-        error: '', // Initialize error state
+    const router = useRouter();
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        error: '',
     });
 
-    const uploadFileChangeHandler = (e) => {
-        const selectedFile = e.target.files[0];
-        if (selectedFile && selectedFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-            setUploadFile({ file: selectedFile, error: '' }); // Clear error if file format is correct
-        } else {
-            setUploadFile({ file: null, error: 'Wrong file format' });
-        }
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
 
-    const invokeUploadFileSubmitHandler = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!uploadFile.file) return;
-
+        const { email, password } = formData;
         try {
-            const formData = new FormData();
-            formData.append('file', uploadFile.file);
-            const headers = {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }
-
-            const { data } = await axios.post(API.invokekyc(), formData, headers);
-
-            // Assuming the server returns a message
-            if (data.success) {
-                setUploadFile({ file: null, error: '' });
-                snackbar(data.msg);
+            const { data } = await axios.post('http://localhost:8070/userKyc/login', { email, password });
+            if (data.code === "0000") {
+                router.push("/uploadfile");
+                console.log(data.code)
             } else {
-                setUploadFile((prevState) => ({ ...prevState, error: data.msg }));
+                setFormData({ ...formData, error: data.msg });
             }
         } catch (error) {
-            errorHandler(error);
+            console.error('Error validating email and password:', error);
         }
     };
 
     return (
-        <div className="container-fluid">
-            <div className="m-3">
-                <div className="container mt-3">
-                    <Branding />
-                    <form className="row align-items-end" onSubmit={invokeUploadFileSubmitHandler}>
-                        <div className="col-md-10">
-                            <div className="row">
-                                <div className="col-md-11">
-                                    <label>Upload File</label>
-                                    <input
-                                        type="file"
-                                        name="file"
-                                        className="form-control"
-                                        accept=".xlsx"
-                                        required
-                                        onChange={uploadFileChangeHandler}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-2">
-                            <button className="btn btn-primary" type="submit">
-                                Upload
-                            </button>
-                        </div>
-                    </form>
-                    <div className='errorcontainer success-container'>
-                        {/* <h1 className="success-container">Success</h1> */}
-                        {uploadFile.error && <p className="error-message">{uploadFile.error}</p>}
+
+        <div className="container">
+            <Branding />
+            <div className="login-page-outer-container">
+                <form
+                    onSubmit={handleSubmit}
+                    className="login-form-inner-container"
+                >
+                    <div>
+                        <label>Email:</label>
+                        <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            required
+                            className="form-control"
+                        />
                     </div>
-                </div>
+
+                    <div className="mt-2">
+                        <label>Password:</label>
+                        <input
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleInputChange}
+                            required
+                            className="form-control"
+                        />
+                    </div>
+
+                    <div className="mt-3 btn">
+                        <button className='btn btn-primary' type="submit">Submit</button>
+                    </div>
+                    {formData.error && <p className="error-message" >{formData.error}</p>}
+                </form>
+                <Footer />
             </div>
-            <Footer />
         </div>
     );
 };

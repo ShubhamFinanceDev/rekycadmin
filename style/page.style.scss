@@ -34,3 +34,60 @@
   color: red;
   font-size: 24px;
 }
+
+.login-page-outer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 800;
+
+    span {
+      font-size: 2rem;
+      font-weight: 800;
+      color: $primary;
+    }
+  }
+  h2 {
+    margin: 0.5rem 0 1.5rem;
+  }
+
+  .login-form-inner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 400px;
+    max-width: 500px;
+    width: 100%;
+    padding: 2rem;
+    border-radius: 0.5rem;
+
+    h2 {
+      text-align: center;
+      line-height: 125%;
+    }
+
+    div {
+      width: 100%;
+      margin: 0 1rem;
+    }
+
+    button {
+      font-weight: 600;
+    }
+  }
+
+  .request-resend {
+    span {
+      font-weight: 400;
+    }
+  }
+}
+
+.btn {
+  margin-left: auto;
+}

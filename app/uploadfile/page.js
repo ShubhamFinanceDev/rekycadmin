@@ -36,8 +36,8 @@ const UploadPage = () => {
                         </div>
                     </form>
                     <div className='errorcontainer success-container'>
-                        {/* <h1 className="success-container">Success</h1> */}
-                        {uploadFile?.error && <p className="success-container">{uploadFile?.error}</p>}
+                        {uploadFile?.error && <p className="error-message">{uploadFile?.error}</p>}
+                        {uploadFile?.success && <p className="success-container">{uploadFile?.success}</p>}
                     </div>
                 </div>
             </div>

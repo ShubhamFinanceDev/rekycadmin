@@ -63,9 +63,9 @@ const useAuthHooks = () => {
                 }
             }
             const { data } = await axios.post(API.invokekyc(), formData, headers);
-            if (data.success) {
-                setUploadFile({ file: null, error: '' });
-                snackbar(data.msg);
+            if (data.code=== "0000") {
+                setUploadFile({ file: null, error: '', success:data.msg });
+                // snackbar(data.msg);
             } else {
                 setUploadFile((prevState) => ({ ...prevState, error: data.msg }));
             }

@@ -1,49 +1,12 @@
 "use client"
 
 import React, { useState } from 'react';
-import axios from "axios";
-import API from '@/services/endpoint';
-import errorHandler from '@/utils/handler.utils';
 import Footer from '@/component/core/Footer';
 import Branding from '@/component/core/Branding';
+import useAuthHooks from '@/hooks/useAuthHooks';
 
 const UploadPage = () => {
-    const [uploadFile, setUploadFile] = useState({
-        file: null,
-        error: '',
-    });
-
-    const uploadFileChangeHandler = (e) => {
-        const selectedFile = e.target.files[0];
-        if (selectedFile && selectedFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-            setUploadFile({ file: selectedFile, error: '' });
-        } else {
-            setUploadFile({ file: null, error: 'Wrong file format' });
-        }
-    };
-
-    const invokeUploadFileSubmitHandler = async (e) => {
-        e.preventDefault();
-        if (!uploadFile.file) return;
-        try {
-            const formData = new FormData();
-            formData.append('file', uploadFile.file);
-            const headers = {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }
-            const { data } = await axios.post(API.invokekyc(), formData, headers);
-            if (data.success) {
-                setUploadFile({ file: null, error: '' });
-                snackbar(data.msg);
-            } else {
-                setUploadFile((prevState) => ({ ...prevState, error: data.msg }));
-            }
-        } catch (error) {
-            errorHandler(error);
-        }
-    };
+    const {uploadFile, invokeUploadFileSubmitHandler,uploadFileChangeHandler}= useAuthHooks()
 
     return (
         <div className="container-fluid">
@@ -74,7 +37,7 @@ const UploadPage = () => {
                     </form>
                     <div className='errorcontainer success-container'>
                         {/* <h1 className="success-container">Success</h1> */}
-                        {uploadFile.error && <p className="error-message">{uploadFile.error}</p>}
+                        {uploadFile?.error && <p className="success-container">{uploadFile?.error}</p>}
                     </div>
                 </div>
             </div>

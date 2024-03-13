@@ -2,8 +2,8 @@
 
 const API = {
 
-    invokekyc: () => `http://localhost:8070/userKyc/invoke-kyc-process-flag`,
-    validEmailPassword: () => `http://localhost:8070/userKyc/login`
+    invokekyc: () => `http://144.24.96.140:8070/admin/invoke-kyc-process-flag`,
+    validEmailPassword: () => `http://144.24.96.140:8070/admin/login`
 
 }
 

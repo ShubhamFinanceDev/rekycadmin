@@ -73,11 +73,17 @@ const useAuthHooks = () => {
             errorHandler(error);
         }
     };
+
+
+    const handleLogout = () => {
+        router.push("/");
+
+      };
     
 
     return (
         {
-            formData, userSubmitHandler,inputChangeHandler,
+            formData, userSubmitHandler,inputChangeHandler,handleLogout,
             uploadFile, invokeUploadFileSubmitHandler,uploadFileChangeHandler
 
         }

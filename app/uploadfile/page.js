@@ -11,7 +11,7 @@ const UploadPage = () => {
 
     useEffect(()=>{
         fetchkyccount()
-    })
+    },[])
 
     return (
         <div className="container-fluid">

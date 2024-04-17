@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation'
 const useAuthHooks = () => {
     const router = useRouter();
 
+    const [kyccount, setKyccount] = useState([])
+
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -30,6 +32,16 @@ const useAuthHooks = () => {
             } else {
                 setFormData({ ...formData, error: data.msg });
             }
+        } catch (error) {
+            console.error('Error validating email and password:', error);
+        }
+    };
+    const fetchkyccount = async () => {
+        try {
+            const { data } = await axios.get(API.kyccount());
+            setKyccount(data)
+            console.log(data)
+
         } catch (error) {
             console.error('Error validating email and password:', error);
         }
@@ -84,7 +96,8 @@ const useAuthHooks = () => {
     return (
         {
             formData, userSubmitHandler,inputChangeHandler,handleLogout,
-            uploadFile, invokeUploadFileSubmitHandler,uploadFileChangeHandler
+            uploadFile, invokeUploadFileSubmitHandler,uploadFileChangeHandler,
+            kyccount,fetchkyccount
 
         }
     )

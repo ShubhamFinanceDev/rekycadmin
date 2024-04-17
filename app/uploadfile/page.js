@@ -1,15 +1,17 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import Footer from '@/component/core/Footer';
 import Branding from '@/component/core/Branding';
 import useAuthHooks from '@/hooks/useAuthHooks';
 
 const UploadPage = () => {
-    const {uploadFile, invokeUploadFileSubmitHandler,uploadFileChangeHandler,handleLogout}= useAuthHooks()
+    const {uploadFile, kyccount, fetchkyccount, invokeUploadFileSubmitHandler,uploadFileChangeHandler,handleLogout}= useAuthHooks()
 
 
-
+    useEffect(()=>{
+        fetchkyccount()
+    })
 
     return (
         <div className="container-fluid">
@@ -21,7 +23,9 @@ const UploadPage = () => {
                 </div>
             <div className="container mt-3">
                 <Branding />
-                <form className="row align-items-end" onSubmit={invokeUploadFileSubmitHandler}>
+               <b><p>ExistingKyc: {kyccount.existingKyc}</p></b>
+               <b> <p>UpdatedKyc: {kyccount.updatedKyc}</p></b>
+                <form className="row align-items-end mt-2" onSubmit={invokeUploadFileSubmitHandler}>
                     <div className="col-md-10">
                         <div className="row">
                             <div className="col-md-12">

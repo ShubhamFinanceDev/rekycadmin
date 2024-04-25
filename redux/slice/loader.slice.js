@@ -1,14 +1,15 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+
 const initialState = {
     loader: false,
-    purpose: "",
+    purpose: ""
 }
 
 const loaderSlice = createSlice({
     name: "loader",
     initialState,
-    reducerrs: {
-        starLoaderAct: (state, action) => {
+    reducers: {
+        startLoaderAct: (state, action) => {
             if (!state.loader) {
                 state.loader = true
 
@@ -18,14 +19,12 @@ const loaderSlice = createSlice({
 
             }
         },
-
         stopLoaderAct: (state) => {
-            state.loader = false,
-                state.purpose = ""
-
+            state.loader = false
+            state.purpose = ""
         },
     },
 })
 
-export const { starLoaderAct, stopLoaderAct } = loaderSlice.actions
+export const { startLoaderAct, stopLoaderAct } = loaderSlice.actions
 export default loaderSlice.reducer

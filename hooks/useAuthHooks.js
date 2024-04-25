@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import axios from "axios";
+import axios from "@/services/axios";
 import API from '@/services/endpoint';
 import errorHandler from '@/utils/handler.utils';
 import { useRouter } from 'next/navigation'

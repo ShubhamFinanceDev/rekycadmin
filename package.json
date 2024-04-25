@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "PORT=4040 next dev",
+    "windev": "set PORT=4040 && next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "PORT=4040 next start",
     "lint": "next lint"
   },
   "dependencies": {

@@ -245,3 +245,34 @@ main {
     text-decoration: underline;
   }
 }
+
+
+
+.kyccount{
+  height: 5rem;
+  float: inline-start;
+
+}
+.kyccount1{
+  display: flex;
+  justify-content: end;
+
+}
+.updatedKyc{
+  height: 5rem;
+  float: inline-end;
+
+
+}
+.updatedKyc1{
+  height: 5rem;
+  float: inline-end;
+}
+
+.file_container{
+  justify-content: space-between;
+}
+
+.Upload{
+  float:inline-end
+}

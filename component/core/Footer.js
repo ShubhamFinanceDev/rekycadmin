@@ -2,8 +2,9 @@
 
 const Footer = () => {
     return (
-        <footer>
-             Copyright@{year.getFullYear()} Shubham Housing Finance. All Rights Reserved.
+        <footer className='footer'>
+            <div className='container'>
+            </div>
         </footer>
     );
 };

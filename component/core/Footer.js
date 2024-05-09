@@ -1,15 +1,12 @@
 "use client";
 
-import React from 'react'
-
 const Footer = () => {
-    let year = new Date()
-
     return (
-        <footer>
-            Copyright@{year.getFullYear()} Shubham Housing Finance. All Rights Reserved.
+        <footer className='footer'>
+            <div className='container'>
+            </div>
         </footer>
-    )
-}
+    );
+};
 
-export default Footer
+export default  Footer;

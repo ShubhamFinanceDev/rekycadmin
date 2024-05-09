@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react';
+import Footer from '@/component/core/Footer';
 import Branding from '@/component/core/Branding';
 import useAuthHooks from '@/hooks/useAuthHooks';
 
@@ -47,6 +48,7 @@ const HomePage = () => {
                     </div>
                     {formData?.error && <p className="error-message" >{formData?.error}</p>}
                 </form>
+                <Footer />
             </div>
         </div>
     );

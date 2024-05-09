@@ -1,7 +1,6 @@
 "use client"
 
 import React, {useEffect, useState } from 'react';
-import Footer from '@/component/core/Footer';
 import Branding from '@/component/core/Branding';
 import useAuthHooks from '@/hooks/useAuthHooks';
 
@@ -72,7 +71,6 @@ const UploadPage = () => {
                         </div>
                     </div>
             </div>
-            <Footer />
         </div>
     );
 };

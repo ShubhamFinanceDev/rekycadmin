@@ -1,8 +1,7 @@
 import { Providers } from "@/redux/provider"
 import Loader from "@/component/core/Loader"
-
-
 import "@/style/style.map.scss"
+import Footer from "@/component/core/Footer"
 
 
 export const metadata = {
@@ -16,7 +15,10 @@ export default function RootLayout({ children }) {
       <body suppressHydrationWarning={true}>
         <Providers>
           <Loader />
+          <div>
           {children}
+          </div>
+          <Footer/>
         </Providers>
       </body>
     </html>

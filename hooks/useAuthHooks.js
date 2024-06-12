@@ -4,6 +4,7 @@ import axios from "@/services/axios";
 import API from '@/services/endpoint';
 import errorHandler from '@/utils/handler.utils';
 import { useRouter } from 'next/navigation'
+import Cookies from 'js-cookie';
 
 const useAuthHooks = () => {
     const router = useRouter();
@@ -27,8 +28,8 @@ const useAuthHooks = () => {
         try {
             const { data } = await axios.post(API.validEmailPassword(), { email, password });
             if (data.code === "0000") {
+                Cookies.set("UID", data?.uid)
                 router.push("/uploadfile");
-                console.log(data.code)
             } else {
                 setFormData({ ...formData, error: data.msg });
             }
@@ -38,7 +39,8 @@ const useAuthHooks = () => {
     };
     const fetchkyccount = async () => {
         try {
-            const { data } = await axios.get(API.kyccount());
+            const Uid = Cookies.get("UID");
+            const { data } = await axios.get(API.kyccount(Uid));
             setKyccount(data)
             console.log(data)
 
@@ -68,13 +70,14 @@ const useAuthHooks = () => {
         if (!uploadFile.file) return;
         try {
             const formData = new FormData();
+            const Uid = Cookies.get("UID");
             formData.append('file', uploadFile.file);
             const headers = {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             }
-            const { data } = await axios.post(API.invokekyc(), formData, headers);
+            const { data } = await axios.post(API.invokekyc(Uid), formData, headers);
             if (data.code=== "0000") {
                 setUploadFile({ file: null, error: '', success:data.msg });
                 // snackbar(data.msg);

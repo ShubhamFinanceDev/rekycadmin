@@ -49,6 +49,43 @@ const useAuthHooks = () => {
         }
     };
 
+    const generateMISReport = async () => {
+        axios({
+            url: '/admin/generate-report', 
+            method: "GET",
+            responseType: "blob",
+        })
+            .then((response) => {
+                const blob = new Blob([response.data], {
+                    type: response.headers["content-type"],
+                });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                const contentDisposition = response.headers["content-disposition"];
+                let filename = "download.xlsx";
+                if (contentDisposition) {
+                    const match = contentDisposition.match(/filename="?([^"]+)"?/);
+                    if (match && match[1]) {
+                        filename = match[1];
+                    }
+                }
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch((error) => {
+                console.error("Error downloading the file:", error);
+            });
+    };
+
+    const genratereportSubmitHandler = (e) => {
+        e.preventDefault();
+        generateMISReport();
+    };
+
 
     ////upload file 
     const [uploadFile, setUploadFile] = useState({
@@ -100,7 +137,7 @@ const useAuthHooks = () => {
         {
             formData, userSubmitHandler,inputChangeHandler,handleLogout,
             uploadFile, invokeUploadFileSubmitHandler,uploadFileChangeHandler,
-            kyccount,fetchkyccount
+            kyccount,fetchkyccount,genratereportSubmitHandler
 
         }
     )

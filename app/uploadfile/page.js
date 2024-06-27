@@ -5,7 +5,7 @@ import Branding from '@/component/core/Branding';
 import useAuthHooks from '@/hooks/useAuthHooks';
 
 const UploadPage = () => {
-    const {uploadFile, kyccount, fetchkyccount, invokeUploadFileSubmitHandler,uploadFileChangeHandler,handleLogout}= useAuthHooks()
+    const {uploadFile, kyccount, fetchkyccount, invokeUploadFileSubmitHandler,uploadFileChangeHandler,handleLogout,genratereportSubmitHandler}= useAuthHooks()
 
 
     useEffect(()=>{
@@ -23,7 +23,7 @@ const UploadPage = () => {
                 <div className="container mt-3">
                     <Branding />
                     <form className="row align-items-end mt-2" onSubmit={invokeUploadFileSubmitHandler}>
-                        <div className="col-md-10">
+                        <div className="col-md-8">
                             <div className="row">
                                 <div className="col-md-12">
                                     <label>Upload File</label>
@@ -39,8 +39,13 @@ const UploadPage = () => {
                             </div>
                         </div>
                         <div className="col-md-2">
-                            <button className="btn btn-primary" type="submit">
+                            <button className="btn btn-primary uploadclass" type="submit">
                                 Upload
+                            </button>
+                        </div>
+                        <div className="col-md-2">
+                            <button className="btn btn-primary" type='button' onClick={genratereportSubmitHandler}>
+                                MIS Report
                             </button>
                         </div>
                     </form>

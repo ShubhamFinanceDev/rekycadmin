@@ -50,9 +50,9 @@ const useAuthHooks = () => {
     };
 
     const generateMISReport = async () => {
-        const Uid = Cookies.get("UID");
+        const uid = Cookies.get("UID");
         axios({
-            url: `/admin/generate-report?Uid=${Uid}`, 
+            url: `/admin/generate-report?uid=${uid}`, 
             method: "GET",
             responseType: "blob",
 

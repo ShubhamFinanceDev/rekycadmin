@@ -10,6 +10,7 @@ const useAuthHooks = () => {
     const router = useRouter();
 
     const [kyccount, setKyccount] = useState([])
+    const [msgs, setmsg] = useState([])
 
     const [formData, setFormData] = useState({
         email: '',
@@ -42,7 +43,17 @@ const useAuthHooks = () => {
             const Uid = Cookies.get("UID");
             const { data } = await axios.get(API.kyccount(Uid));
             setKyccount(data)
-            console.log(data)
+
+        } catch (error) {
+            console.error('Error validating email and password:', error);
+        }
+    };
+    const sendsmsHandler = async () => {
+        try {
+            const Uid = Cookies.get("UID");
+            const { data } = await axios.post(API.sendsms(Uid));
+            setmsg(data.msg)
+
 
         } catch (error) {
             console.error('Error validating email and password:', error);
@@ -139,7 +150,7 @@ const useAuthHooks = () => {
         {
             formData, userSubmitHandler,inputChangeHandler,handleLogout,
             uploadFile, invokeUploadFileSubmitHandler,uploadFileChangeHandler,
-            kyccount,fetchkyccount,genratereportSubmitHandler
+            kyccount,fetchkyccount,genratereportSubmitHandler,msgs,sendsmsHandler
 
         }
     )

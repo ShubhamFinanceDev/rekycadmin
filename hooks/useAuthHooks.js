@@ -52,7 +52,7 @@ const useAuthHooks = () => {
         try {
             const Uid = Cookies.get("UID");
             const { data } = await axios.post(API.sendsms(Uid));
-            setmsg(data.msg)
+            alert(data.msg)
 
 
         } catch (error) {

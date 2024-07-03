@@ -5,7 +5,7 @@ import Branding from '@/component/core/Branding';
 import useAuthHooks from '@/hooks/useAuthHooks';
 
 const UploadPage = () => {
-    const {uploadFile, kyccount, fetchkyccount, invokeUploadFileSubmitHandler,uploadFileChangeHandler,handleLogout}= useAuthHooks()
+    const {uploadFile, msgs,kyccount, fetchkyccount, invokeUploadFileSubmitHandler,uploadFileChangeHandler,handleLogout,genratereportSubmitHandler,sendsmsHandler}= useAuthHooks()
 
 
     useEffect(()=>{
@@ -23,7 +23,7 @@ const UploadPage = () => {
                 <div className="container mt-3">
                     <Branding />
                     <form className="row align-items-end mt-2" onSubmit={invokeUploadFileSubmitHandler}>
-                        <div className="col-md-10">
+                        <div className="col-md-9">
                             <div className="row">
                                 <div className="col-md-12">
                                     <label>Upload File</label>
@@ -38,16 +38,32 @@ const UploadPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-2">
-                            <button className="btn btn-primary" type="submit">
+                        <div className="col-md-1">
+                            <button className="btn btn-primary uploadclass" type="submit">
                                 Upload
                             </button>
                         </div>
+                        <div className="col-md-2 ">
+                            <button className="btn btn-primary" type='button' onClick={sendsmsHandler}>
+                                Send Sms
+                            </button>
+                        </div>
+
                     </form>
+              
+                    <div className="col-md-2 mt-3">
+                            <button className="btn btn-primary" type='button' onClick={genratereportSubmitHandler}>
+                                MIS Report
+                            </button>
+                        
+                    </div>
+
                     <div className="errorcontainer success-container">
                         {uploadFile?.error && <p className="error-message">{uploadFile?.error}</p>}
                         {uploadFile?.success && <p className="success-container">{uploadFile?.success}</p>}
+                        {msgs && <p className="container">{msgs}</p>}
                     </div>
+
 
                 </div>
                     <div className="row mt-3 file_container">

@@ -10,6 +10,7 @@ const useAuthHooks = () => {
     const router = useRouter();
 
     const [kyccount, setKyccount] = useState([])
+    const [msgs, setmsg] = useState([])
 
     const [formData, setFormData] = useState({
         email: '',
@@ -42,11 +43,60 @@ const useAuthHooks = () => {
             const Uid = Cookies.get("UID");
             const { data } = await axios.get(API.kyccount(Uid));
             setKyccount(data)
-            console.log(data)
 
         } catch (error) {
             console.error('Error validating email and password:', error);
         }
+    };
+    const sendsmsHandler = async () => {
+        try {
+            const Uid = Cookies.get("UID");
+            const { data } = await axios.post(API.sendsms(Uid));
+            alert(data.msg)
+
+
+        } catch (error) {
+            console.error('Error validating email and password:', error);
+        }
+    };
+
+    const generateMISReport = async () => {
+        const uid = Cookies.get("UID");
+        axios({
+            url: `/admin/generate-report?uid=${uid}`, 
+            method: "GET",
+            responseType: "blob",
+
+        })
+            .then((response) => {
+                const blob = new Blob([response.data], {
+                    type: response.headers["content-type"],
+                });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                const contentDisposition = response.headers["content-disposition"];
+                let filename = "download.xlsx";
+                if (contentDisposition) {
+                    const match = contentDisposition.match(/filename="?([^"]+)"?/);
+                    if (match && match[1]) {
+                        filename = match[1];
+                    }
+                }
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch((error) => {
+                console.error("Error downloading the file:", error);
+            });
+    };
+
+    const genratereportSubmitHandler = (e) => {
+        e.preventDefault();
+        generateMISReport();
     };
 
 
@@ -100,7 +150,7 @@ const useAuthHooks = () => {
         {
             formData, userSubmitHandler,inputChangeHandler,handleLogout,
             uploadFile, invokeUploadFileSubmitHandler,uploadFileChangeHandler,
-            kyccount,fetchkyccount
+            kyccount,fetchkyccount,genratereportSubmitHandler,msgs,sendsmsHandler
 
         }
     )

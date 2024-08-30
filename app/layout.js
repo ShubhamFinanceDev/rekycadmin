@@ -2,6 +2,7 @@ import { Providers } from "@/redux/provider"
 import Loader from "@/component/core/Loader"
 import "@/style/style.map.scss"
 import Footer from "@/component/core/Footer"
+import  {Toaster}  from "react-hot-toast"
 
 
 export const metadata = {
@@ -20,7 +21,11 @@ export default function RootLayout({ children }) {
           </div>
           <Footer/>
         </Providers>
-      </body>
+          <Toaster
+           position="top-right"
+           reverseOrder={false}
+           />
+      </body>   
     </html>
   )
 }

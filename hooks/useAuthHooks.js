@@ -5,6 +5,7 @@ import API from '@/services/endpoint';
 import errorHandler from '@/utils/handler.utils';
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie';
+import toast from 'react-hot-toast';
 
 const useAuthHooks = () => {
     const router = useRouter();
@@ -90,7 +91,7 @@ const useAuthHooks = () => {
                 window.URL.revokeObjectURL(url);
             })
             .catch((error) => {
-                console.error("Error downloading the file:", error);
+                toast.error("Error downloading the file:")
             });
     };
 

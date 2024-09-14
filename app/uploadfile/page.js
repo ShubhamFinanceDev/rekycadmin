@@ -13,20 +13,49 @@ const UploadPage = () => {
     },[])
 
     return (
-        <div className="container-fluid" style={{ height: '100vh', overflowY: 'auto' }}>
-            <div className="m-3">
-                <div className="d-flex justify-content-end mb-2">
-                    <button className="btn btn-outline-danger" onClick={handleLogout}>
-                        Logout
-                    </button>
+        <div className="" style={{ height: '100vh', overflowY: 'auto' }}>
+            <div className="">
+                <header className="p-3">
+                    <img src="/logo.png" alt="logo" />
+                    <h1 className="header-text">UPDATION FORM FOR REKYC ADMIN<br/>
+                    <p className="header-tital">(Fields marked with * are mandatory)</p></h1>
+                    <button className='btn btn-light btn-sm' onClick={handleLogout}>Logout</button>
+                </header>
+                <div className='options'>
                 </div>
                 <div className="container mt-3">
-                    <Branding />
                     <form className="row align-items-end mt-2" onSubmit={invokeUploadFileSubmitHandler}>
-                        <div className="col-md-9">
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <label>Upload File</label>
+                     <div className="col-md-4 mt-4">
+                       <div className="card">
+                         <div className="card-body">
+                           <div className="row">
+                             <label className="col-md-4 lablefont">Existing KYC:</label>
+                             <div className="col-md-8">{kyccount.existingKyc}</div>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                     
+                     <div className="col-md-4 mt-4">
+                       <div className="card">
+                         <div className="card-body">
+                           <div className="row">
+                             <label className="col-md-4 lablefont">Updated KYC:</label>
+                             <div className="col-md-8">{kyccount.updatedKyc}</div>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                    <div className="col-md-3 d-flex mt-3">
+                            <button className="btn btn-primary" type='button' onClick={genratereportSubmitHandler}>
+                                MIS Report
+                            </button>                    
+                    </div>
+
+                        <div className="col-md-12 UploaDFilemargin">
+                            <div className="row mt-4">
+                                <label className="col-md-2">Upload File :<span/></label>
+                                <div className="col-md-7">
                                     <input
                                         type="file"
                                         name="file"
@@ -36,9 +65,7 @@ const UploadPage = () => {
                                         onChange={uploadFileChangeHandler}
                                     />
                                 </div>
-                            </div>
-                        </div>
-                        <div className="col-md-1">
+                            <div className="col-md-1">
                             <button className="btn btn-primary uploadclass" type="submit">
                                 Upload
                             </button>
@@ -48,44 +75,16 @@ const UploadPage = () => {
                                 Send Sms
                             </button>
                         </div>
+                            </div>
+                        </div>
 
                     </form>
-              
-                    <div className="col-md-2 mt-3">
-                            <button className="btn btn-primary" type='button' onClick={genratereportSubmitHandler}>
-                                MIS Report
-                            </button>
-                        
-                    </div>
-
                     <div className="errorcontainer success-container">
                         {uploadFile?.error && <p className="error-message">{uploadFile?.error}</p>}
                         {uploadFile?.success && <p className="success-container">{uploadFile?.success}</p>}
                         {msgs && <p className="container">{msgs}</p>}
                     </div>
-
-
                 </div>
-                    <div className="row mt-3 file_container">
-                        <div className="col-md-2">
-                            <div className="card">
-                                <div className="card-body">
-                                <img className='kyccount' src="/image.png" alt="file_logo" />
-                                    <b><p className='card-title kyccount1 '>{kyccount.existingKyc}</p></b>
-                                    <b><p className='card-title kyccount1'>ExistingKyc</p></b>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-2">
-                            <div className="card">
-                                <div className="card-body ">
-                                <img className='updatedKyc' src="/image.png" alt="file_logo" />
-                                    <b><p className='card-title'>{kyccount.updatedKyc}</p></b>
-                                    <b><p className='card-title'>UpdatedKyc</p></b>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
             </div>
         </div>
     );
